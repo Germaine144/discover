@@ -61,7 +61,7 @@ const ContactInquiryForm: React.FC<ContactInquiryFormProps> = ({ accommodationNa
       onClick={onClose}
     >
       <div 
-        className="bg-white rounded-xl max-w-2xl w-full my-8 shadow-2xl relative transform transition-all animate-slideUp"
+        className="bg-white rounded-xl max-w-2xl w-full my-8 shadow-2xl relative transform transition-all animate-slideUp max-h-[90vh] flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close Button */}
@@ -73,15 +73,16 @@ const ContactInquiryForm: React.FC<ContactInquiryFormProps> = ({ accommodationNa
         </button>
 
         {/* Header */}
-        <div className="bg-gradient-to-r from-green-600 to-green-700 text-white p-6 rounded-t-xl">
+        <div className="bg-gradient-to-r from-green-600 to-green-700 text-white p-6 rounded-t-xl flex-shrink-0">
           <h2 className="text-2xl font-bold mb-2">Contact Us</h2>
           <p className="text-green-50">Inquire about {accommodationName}</p>
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="p-6 space-y-5">
+        <form onSubmit={handleSubmit} className="flex-1 overflow-y-auto">
+          <div className="p-6 space-y-5">
           {/* Personal Information */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Full Name *
@@ -138,7 +139,7 @@ const ContactInquiryForm: React.FC<ContactInquiryFormProps> = ({ accommodationNa
           </div>
 
           {/* Stay Dates */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Check-In Date
@@ -249,6 +250,7 @@ const ContactInquiryForm: React.FC<ContactInquiryFormProps> = ({ accommodationNa
           <p className="text-xs text-gray-500 text-center">
             We'll respond to your inquiry within 24 hours
           </p>
+          </div>
         </form>
       </div>
 

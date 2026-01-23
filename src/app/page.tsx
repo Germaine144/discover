@@ -1,24 +1,38 @@
 import React from 'react';
 import Image from 'next/image';
-
+import Link from 'next/link';
 const KigaliEssentials: React.FC = () => {
   return (
     <div className="bg-gray-50">
       {/* Hero Section with Video Background */}
       <section id="kigali-essentials" className="relative h-screen flex items-center justify-center overflow-hidden">
         {/* Video Background */}
-        <div className="absolute inset-0 w-full h-full">
+         <div className="absolute inset-0 w-full h-full z-0">
           <video
             autoPlay
             loop
             muted
             playsInline
-            className="w-full h-full object-cover"
+            preload="auto"
+            className="absolute inset-0 w-full h-full object-cover brightness-[0.5]"
+            style={{
+              objectFit: 'cover',
+              width: '100%',
+              height: '100%',
+              minHeight: '100vh'
+            }}
           >
-            <source src="/videos/kigali-hero.mp4" type="video/mp4" />
+           <source src="/videos/kigsli123.mp4"  type="video/mp4" />
           </video>
-          {/* Dark Overlay */}
-          <div className="absolute inset-0 bg-black bg-opacity-50"></div>
+          
+          {/* Fallback background image */}
+          <div 
+            className="absolute inset-0 w-full h-full bg-cover bg-center"
+            style={{ 
+              backgroundImage: "url('')",
+              filter: 'brightness(0.3)'
+            }}
+          />
         </div>
 
         {/* Hero Content */}
@@ -322,13 +336,19 @@ const KigaliEssentials: React.FC = () => {
             Discover the places, activities, and accommodations that make Kigali unforgettable
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="bg-white text-green-600 px-8 py-4 rounded-full text-lg font-semibold hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-lg">
-              Explore Places to Visit
-            </button>
-            <button className="bg-transparent border-2 border-white text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-white hover:text-green-600 transition-all duration-300 transform hover:scale-105">
-              Plan Your Stay
-            </button>
-          </div>
+  <Link 
+    href="/places"
+    className="bg-white text-green-600 px-8 py-4 rounded-full text-lg font-semibold hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-lg text-center"
+  >
+    Explore Places to Visit
+  </Link>
+  <Link 
+    href="/accommodations"
+    className="bg-transparent border-2 border-white text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-white hover:text-green-600 transition-all duration-300 transform hover:scale-105 text-center"
+  >
+    Plan Your Stay
+  </Link>
+</div>
         </div>
       </section>
     </div>
