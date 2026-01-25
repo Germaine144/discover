@@ -159,10 +159,10 @@ const Header: React.FC = () => {
             scrolled ? 'bg-black/50' : 'bg-black/60'
           }`}>
             <Link
-              href="/about"
+              href="/"
               onClick={() => setIsMobileMenuOpen(false)}
               className={`block text-white hover:text-green-300 hover:bg-white/10 text-sm sm:text-base font-medium py-3 px-4 rounded-lg transition-all duration-200 ${
-                isActive('/about') ? 'bg-white/20' : ''
+                isActive('/') ? 'bg-white/20' : ''
               }`}
             >
               Kigali Essentials
