@@ -4,17 +4,28 @@ import React, { useState } from 'react';
 import { X, Mail, Phone, User, Calendar, Users, MessageSquare, Send } from 'lucide-react';
 
 interface ContactInquiryFormProps {
-  accommodationName: string;
+  accommodationName?: string;
+  activityName?: string;
   onClose: () => void;
+  type?: 'accommodation' | 'activity';
 }
 
-const ContactInquiryForm: React.FC<ContactInquiryFormProps> = ({ accommodationName, onClose }) => {
+const ContactInquiryForm: React.FC<ContactInquiryFormProps> = ({ 
+  accommodationName,
+  activityName, 
+  onClose,
+  type = 'accommodation'
+}) => {
+  // Determine the name to display based on what's provided
+  const displayName = accommodationName || activityName || '';
+  
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
-    checkIn: '',
-    checkOut: '',
+    checkIn: type === 'accommodation' ? '' : undefined,
+    checkOut: type === 'accommodation' ? '' : undefined,
+    preferredDate: type === 'activity' ? '' : undefined,
     guests: '1',
     message: ''
   });
@@ -44,8 +55,9 @@ const ContactInquiryForm: React.FC<ContactInquiryFormProps> = ({ accommodationNa
           name: '',
           email: '',
           phone: '',
-          checkIn: '',
-          checkOut: '',
+          checkIn: type === 'accommodation' ? '' : undefined,
+          checkOut: type === 'accommodation' ? '' : undefined,
+          preferredDate: type === 'activity' ? '' : undefined,
           guests: '1',
           message: ''
         });
@@ -74,8 +86,12 @@ const ContactInquiryForm: React.FC<ContactInquiryFormProps> = ({ accommodationNa
 
         {/* Header */}
         <div className="bg-gradient-to-r from-green-600 to-green-700 text-white p-6 rounded-t-xl flex-shrink-0">
-          <h2 className="text-2xl font-bold mb-2">Contact Us</h2>
-          <p className="text-green-50">Inquire about {accommodationName}</p>
+          <h2 className="text-2xl font-bold mb-2">
+            {type === 'activity' ? 'Book This Experience' : 'Contact Us'}
+          </h2>
+          <p className="text-green-50">
+            {type === 'activity' ? `Reserve your spot for ${displayName}` : `Inquire about ${displayName}`}
+          </p>
         </div>
 
         {/* Form */}
@@ -138,47 +154,68 @@ const ContactInquiryForm: React.FC<ContactInquiryFormProps> = ({ accommodationNa
             </div>
           </div>
 
-          {/* Stay Dates */}
-          <div className="grid grid-cols-1 gap-4">
+          {/* Date Fields - Different for accommodation vs activity */}
+          {type === 'accommodation' ? (
+            // Accommodation: Check-in and Check-out dates
+            <div className="grid grid-cols-1 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Check-In Date
+                </label>
+                <div className="relative">
+                  <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                  <input
+                    type="date"
+                    name="checkIn"
+                    value={formData.checkIn || ''}
+                    onChange={handleChange}
+                    min={new Date().toISOString().split('T')[0]}
+                    className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Check-Out Date
+                </label>
+                <div className="relative">
+                  <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                  <input
+                    type="date"
+                    name="checkOut"
+                    value={formData.checkOut || ''}
+                    onChange={handleChange}
+                    min={formData.checkIn || new Date().toISOString().split('T')[0]}
+                    className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all"
+                  />
+                </div>
+              </div>
+            </div>
+          ) : (
+            // Activity: Single preferred date
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Check-In Date
+                Preferred Date
               </label>
               <div className="relative">
                 <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
                 <input
                   type="date"
-                  name="checkIn"
-                  value={formData.checkIn}
+                  name="preferredDate"
+                  value={formData.preferredDate || ''}
                   onChange={handleChange}
                   min={new Date().toISOString().split('T')[0]}
                   className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all"
                 />
               </div>
             </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Check-Out Date
-              </label>
-              <div className="relative">
-                <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-                <input
-                  type="date"
-                  name="checkOut"
-                  value={formData.checkOut}
-                  onChange={handleChange}
-                  min={formData.checkIn || new Date().toISOString().split('T')[0]}
-                  className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all"
-                />
-              </div>
-            </div>
-          </div>
+          )}
 
           {/* Number of Guests */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Number of Guests
+              {type === 'activity' ? 'Number of People' : 'Number of Guests'}
             </label>
             <div className="relative">
               <Users className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
@@ -190,10 +227,10 @@ const ContactInquiryForm: React.FC<ContactInquiryFormProps> = ({ accommodationNa
               >
                 {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(num => (
                   <option key={num} value={num}>
-                    {num} {num === 1 ? 'Guest' : 'Guests'}
+                    {num} {num === 1 ? (type === 'activity' ? 'Person' : 'Guest') : (type === 'activity' ? 'People' : 'Guests')}
                   </option>
                 ))}
-                <option value="10+">10+ Guests</option>
+                <option value="10+">{type === 'activity' ? '10+ People' : '10+ Guests'}</option>
               </select>
             </div>
           </div>
@@ -201,7 +238,7 @@ const ContactInquiryForm: React.FC<ContactInquiryFormProps> = ({ accommodationNa
           {/* Message */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Message / Special Requests
+              {type === 'activity' ? 'Additional Information / Questions' : 'Message / Special Requests'}
             </label>
             <div className="relative">
               <MessageSquare className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
@@ -211,7 +248,11 @@ const ContactInquiryForm: React.FC<ContactInquiryFormProps> = ({ accommodationNa
                 onChange={handleChange}
                 rows={4}
                 className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all resize-none"
-                placeholder="Tell us about your preferences, special requirements, or any questions you have..."
+                placeholder={
+                  type === 'activity' 
+                    ? "Tell us about any special requirements, dietary restrictions, or questions you have..."
+                    : "Tell us about your preferences, special requirements, or any questions you have..."
+                }
               />
             </div>
           </div>
@@ -224,7 +265,11 @@ const ContactInquiryForm: React.FC<ContactInquiryFormProps> = ({ accommodationNa
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
               </div>
-              <span className="font-medium">Thank you! We'll get back to you shortly.</span>
+              <span className="font-medium">
+                {type === 'activity' 
+                  ? "Booking request received! We'll contact you shortly to confirm."
+                  : "Thank you! We'll get back to you shortly."}
+              </span>
             </div>
           )}
 
@@ -241,14 +286,16 @@ const ContactInquiryForm: React.FC<ContactInquiryFormProps> = ({ accommodationNa
               </>
             ) : (
               <>
-                <span>Send Inquiry</span>
+                <span>{type === 'activity' ? 'Submit Booking Request' : 'Send Inquiry'}</span>
                 <Send className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </>
             )}
           </button>
 
           <p className="text-xs text-gray-500 text-center">
-            We'll respond to your inquiry within 24 hours
+            {type === 'activity' 
+              ? "We'll confirm your booking and send you all the details within 24 hours"
+              : "We'll respond to your inquiry within 24 hours"}
           </p>
           </div>
         </form>

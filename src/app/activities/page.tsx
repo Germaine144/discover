@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { Bike, Music, Utensils, Coffee, ShoppingBag, Heart, Users, Compass, Calendar, Star, X, ChevronLeft, ChevronRight, Clock, MapPin } from 'lucide-react';
+import ContactInquiryForm from '@/components/ContactInquiryForm';
 
 interface Activity {
   id: number;
@@ -25,6 +26,8 @@ const ThingsToDo: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState<string>('all');
   const [selectedActivity, setSelectedActivity] = useState<Activity | null>(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [showBookingForm, setShowBookingForm] = useState(false);
+  const [bookingActivityName, setBookingActivityName] = useState('');
 
   const categories = [
     { id: 'all', name: 'All Activities', icon: Compass },
@@ -373,6 +376,21 @@ const ThingsToDo: React.FC = () => {
     }
   };
 
+  const handleBooking = (activityName: string) => {
+    setBookingActivityName(activityName);
+    setShowBookingForm(true);
+    // Close the activity modal when opening booking form
+    if (selectedActivity) {
+      setSelectedActivity(null);
+      document.body.style.overflow = 'unset';
+    }
+  };
+
+  const closeBookingForm = () => {
+    setShowBookingForm(false);
+    setBookingActivityName('');
+  };
+
   const getPriceColor = (price: string) => {
     switch (price) {
       case '$': return 'text-green-600';
@@ -699,7 +717,10 @@ const ThingsToDo: React.FC = () => {
                     )}
 
                     <div className="pt-4 sm:pt-6 pb-2 sm:pb-4 sticky bottom-0 bg-white border-t border-gray-200">
-                      <button className="w-full bg-green-600 hover:bg-green-700 text-white py-3 sm:py-3.5 px-4 sm:px-6 rounded-md font-semibold transition-colors uppercase tracking-wide text-sm sm:text-base">
+                      <button 
+                        onClick={() => handleBooking(selectedActivity.name)}
+                        className="w-full bg-green-600 hover:bg-green-700 text-white py-3 sm:py-3.5 px-4 sm:px-6 rounded-md font-semibold transition-colors uppercase tracking-wide text-sm sm:text-base"
+                      >
                         Book This Experience
                       </button>
                     </div>
@@ -709,6 +730,15 @@ const ThingsToDo: React.FC = () => {
             </div>
           </div>
         </div>
+      )}
+
+      {/* Booking Form Modal */}
+      {showBookingForm && (
+        <ContactInquiryForm
+          activityName={bookingActivityName}
+          onClose={closeBookingForm}
+          type="activity"
+        />
       )}
     </div>
   );

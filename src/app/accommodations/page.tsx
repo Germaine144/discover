@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { Hotel, Home, Building2, Wifi, Coffee, Utensils, Car, Star, MapPin, DollarSign, X, ChevronLeft, ChevronRight, Check } from 'lucide-react';
-import ContactInquiryForm from '../../components/ContactInquiryForm';
+import ContactInquiryForm from '@/components/ContactInquiryForm';
 
 interface Accommodation {
   id: number;
@@ -154,33 +154,32 @@ const WhereToStay: React.FC = () => {
       address: 'KN 4 Avenue, City Center, Nyarugenge',
       checkInOut: 'Check-in: 2:00 PM | Check-out: 12:00 PM'
     },
-    
-     {
-  id: 5,
-  name: 'Le Youkounkoun Hotel',
-  type: 'mid-range',
-  description: 'Elegant boutique hotel offering stylish rooms, warm hospitality, and a peaceful atmosphere.',
-  image: '/images/leyoukounkoun.jpg',
-  images: ['/images/leyoukounkoun.jpg', '/images/lekuku.jpg', '/images/lekuku1.jpg'],
-  rating: 4.5,
-  priceRange: '$$$ - $90-170/night',
-  location: 'Kacyiru',
-  amenities: ['Free WiFi', 'Restaurant', 'Swimming Pool', 'Garden', 'Bar', 'Parking'],
-  icon: Building2,
-  detailedDescription: 'Le Youkounkoun Hotel is a charming boutique hotel known for its elegant design, calm environment, and personalized service. The hotel features tastefully decorated rooms with comfortable bedding, modern bathrooms, and workspaces ideal for both leisure and business travelers. Guests enjoy high-speed WiFi, a serene garden, and a refreshing swimming pool. The on-site restaurant serves a mix of local and international cuisine, while the bar provides a relaxing spot for evening drinks. Located in Kacyiru, the hotel offers easy access to government offices, business centers, and the city center, making it a perfect balance between tranquility and convenience.',
-  highlights: [
-    'Boutique luxury experience',
-    'Beautiful garden and pool',
-    'Quiet and secure neighborhood',
-    'High-quality restaurant',
-    'Personalized guest service',
-    'Stylish modern rooms',
-    'Ideal for business and leisure stays',
-    'Peaceful Kacyiru location'
-  ],
-  address: 'Kacyiru, Gasabo District, Kigali',
-  checkInOut: 'Check-in: 2:00 PM | Check-out: 12:00 PM'
-},
+    {
+      id: 5,
+      name: 'Le Youkounkoun Hotel',
+      type: 'mid-range',
+      description: 'Elegant boutique hotel offering stylish rooms, warm hospitality, and a peaceful atmosphere.',
+      image: '/images/leyoukounkoun.jpg',
+      images: ['/images/leyoukounkoun.jpg', '/images/lekuku.jpg', '/images/lekuku1.jpg'],
+      rating: 4.5,
+      priceRange: '$$$ - $90-170/night',
+      location: 'Kacyiru',
+      amenities: ['Free WiFi', 'Restaurant', 'Swimming Pool', 'Garden', 'Bar', 'Parking'],
+      icon: Building2,
+      detailedDescription: 'Le Youkounkoun Hotel is a charming boutique hotel known for its elegant design, calm environment, and personalized service. The hotel features tastefully decorated rooms with comfortable bedding, modern bathrooms, and workspaces ideal for both leisure and business travelers. Guests enjoy high-speed WiFi, a serene garden, and a refreshing swimming pool. The on-site restaurant serves a mix of local and international cuisine, while the bar provides a relaxing spot for evening drinks. Located in Kacyiru, the hotel offers easy access to government offices, business centers, and the city center, making it a perfect balance between tranquility and convenience.',
+      highlights: [
+        'Boutique luxury experience',
+        'Beautiful garden and pool',
+        'Quiet and secure neighborhood',
+        'High-quality restaurant',
+        'Personalized guest service',
+        'Stylish modern rooms',
+        'Ideal for business and leisure stays',
+        'Peaceful Kacyiru location'
+      ],
+      address: 'Kacyiru, Gasabo District, Kigali',
+      checkInOut: 'Check-in: 2:00 PM | Check-out: 12:00 PM'
+    },
     {
       id: 6,
       name: 'Heaven Boutique Hotel',
@@ -208,31 +207,30 @@ const WhereToStay: React.FC = () => {
       checkInOut: 'Check-in: 2:00 PM | Check-out: 11:00 AM'
     },
     {
-  
-  id: 7,
-  name: 'Hut Resto & Boutique Hotel',
-  type: 'boutique',
-  description: 'Stylish boutique hotel with a relaxing garden, great food, and a cozy atmosphere for travelers and locals.',
-  image: '/images/hut.jpg',
-  images: ['/images/hut3.jpg', '/images/hut.jpg', '/images/hut1.jpg'],
-  rating: 4.5,
-  priceRange: '$$ - $60-120/night',
-  location: 'Kimihurura',
-  amenities: ['Free WiFi', 'Restaurant', 'Bar', 'Garden', 'Room Service', 'Parking'],
-  icon: Home,
-  detailedDescription: 'Hut Resto & Boutique Hotel is a charming and modern boutique hotel located in the heart of Kimihurura, Kigali. It offers beautifully designed rooms that combine comfort and elegance, making it ideal for both business and leisure travelers. The hotel is well known for its high-quality restaurant, serving a mix of international and local cuisine in a peaceful garden setting. Guests can relax in the outdoor seating area, enjoy drinks at the bar, or unwind in the stylish lounge. The staff provide excellent hospitality, ensuring a warm and welcoming experience. With its central location, guests have easy access to shopping centers, cafes, and key business areas of the city.',
-  highlights: [
-    'Elegant boutique-style rooms',
-    'Popular on-site restaurant',
-    'Beautiful garden and outdoor seating',
-    'Friendly and professional staff',
-    'Central location in Kimihurura',
-    'Peaceful and secure environment',
-    'Ideal for business and leisure stays'
-  ],
-  address: 'KG 9 Avenue, Kimihurura, Gasabo',
-  checkInOut: 'Check-in: 2:00 PM | Check-out: 11:00 AM'
-},
+      id: 7,
+      name: 'Hut Resto & Boutique Hotel',
+      type: 'boutique',
+      description: 'Stylish boutique hotel with a relaxing garden, great food, and a cozy atmosphere for travelers and locals.',
+      image: '/images/hut.jpg',
+      images: ['/images/hut3.jpg', '/images/hut.jpg', '/images/hut1.jpg'],
+      rating: 4.5,
+      priceRange: '$$ - $60-120/night',
+      location: 'Kimihurura',
+      amenities: ['Free WiFi', 'Restaurant', 'Bar', 'Garden', 'Room Service', 'Parking'],
+      icon: Home,
+      detailedDescription: 'Hut Resto & Boutique Hotel is a charming and modern boutique hotel located in the heart of Kimihurura, Kigali. It offers beautifully designed rooms that combine comfort and elegance, making it ideal for both business and leisure travelers. The hotel is well known for its high-quality restaurant, serving a mix of international and local cuisine in a peaceful garden setting. Guests can relax in the outdoor seating area, enjoy drinks at the bar, or unwind in the stylish lounge. The staff provide excellent hospitality, ensuring a warm and welcoming experience. With its central location, guests have easy access to shopping centers, cafes, and key business areas of the city.',
+      highlights: [
+        'Elegant boutique-style rooms',
+        'Popular on-site restaurant',
+        'Beautiful garden and outdoor seating',
+        'Friendly and professional staff',
+        'Central location in Kimihurura',
+        'Peaceful and secure environment',
+        'Ideal for business and leisure stays'
+      ],
+      address: 'KG 9 Avenue, Kimihurura, Gasabo',
+      checkInOut: 'Check-in: 2:00 PM | Check-out: 11:00 AM'
+    },
     {
       id: 8,
       name: 'Mythos Boutique Hotel',
@@ -824,6 +822,7 @@ const WhereToStay: React.FC = () => {
         <ContactInquiryForm
           accommodationName={contactAccommodation}
           onClose={closeContactForm}
+          type="accommodation"
         />
       )}
     </div>

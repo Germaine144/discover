@@ -300,7 +300,7 @@ const PlacesToVisit: React.FC = () => {
             alt="Kigali City Panorama"
             fill
             priority
-            className="object-cover brightness-[0.4]"
+            className="object-cover brightness-[0.5]"
             quality={100}
           />
         </div>
