@@ -22,7 +22,8 @@ const KigaliEssentials: React.FC = () => {
               minHeight: '100vh'
             }}
           >
-           <source src="/videos/kigsli123.mp4"  type="video/mp4" />
+             <source src="/videos/kigali123.webm" type="video/webm" />
+           <source src="/videos/kigali123.mp4"  type="video/mp4" />
           </video>
           
           {/* Fallback background image */}
