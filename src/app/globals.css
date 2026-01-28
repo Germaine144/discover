@@ -22,7 +22,7 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Lora, Georgia, sans-serif;
+  font-family: "Lora", sans-serif;
   font-style: normal;
   font-weight: 40;
   font-size: 10px;
@@ -31,8 +31,8 @@ body {
 }
 
 /* Ensure all text uses Lora font */
-* {
-  font-family: Lora, Georgia, sans-serif;
+html {
+  font-family: var(--lora-font), sans-serif;
 }
 
 /* 3D Flip Card Styles */
