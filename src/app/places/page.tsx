@@ -292,15 +292,15 @@ const PlacesToVisit: React.FC = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
       {/* Simple Hero Section with brightness filter */}
-      <section className="relative h-[60vh] min-h-[500px] flex items-center justify-center">
+      <section className="relative h-[80vh] min-h-[500px] flex items-center justify-center">
         {/* Background Image with brightness filter */}
         <div className="absolute inset-0 z-0 bg-black">
           <Image
-            src="/images/Rwanda123.jpg"
+            src="/images/inzora.jpg"
             alt="Kigali City Panorama"
             fill
             priority
-            className="object-cover brightness-[0.5]"
+            className="object-cover brightness-[0.6]"
             quality={100}
           />
         </div>
@@ -311,7 +311,7 @@ const PlacesToVisit: React.FC = () => {
             Discover Amazing Places
           </h1>
           <p className="text-lg sm:text-xl text-gray-200 mb-8 max-w-2xl mx-auto">
-            From hidden viewpoints to cultural landmarks, explore the best spots that make Kigali unique
+           From hidden viewpoints to cultural landmarks, explore the best spots that make Kigali unique and discover vibrant neighborhoods, green hills, local markets, museums, parks, art spaces, and welcoming community life
           </p>
         </div>
       </section>

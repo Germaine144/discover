@@ -465,7 +465,7 @@ const WhereToStay: React.FC = () => {
             alt="Kigali Accommodation"
             fill
             priority
-            className="object-cover brightness-[0.3]"
+            className="object-cover brightness-[0.4]"
             quality={100}
           />
         </div>
@@ -476,7 +476,7 @@ const WhereToStay: React.FC = () => {
             Where to Stay in Kigali
           </h1>
           <p className="text-lg sm:text-xl text-gray-200 mb-8 max-w-2xl mx-auto">
-            From luxury hotels to budget-friendly hostels, find the perfect accommodation for your stay
+           From luxury hotels to budget-friendly hostels, find the perfect accommodation in Kigali, offering comfort, convenience, and unforgettable stays for every traveler
           </p>
         </div>
       </section>

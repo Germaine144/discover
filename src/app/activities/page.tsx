@@ -411,7 +411,7 @@ const ThingsToDo: React.FC = () => {
             alt="Kigali Activities"
             fill
             priority
-            className="object-cover brightness-[0.3]"
+            className="object-cover brightness-[0.4]"
             quality={100}
           />
         </div>
@@ -422,7 +422,7 @@ const ThingsToDo: React.FC = () => {
             Things to Do in Kigali
           </h1>
           <p className="text-lg sm:text-xl text-gray-200 mb-8 max-w-2xl mx-auto">
-            From cultural experiences to adventure activities, discover unforgettable experiences
+          From cultural experiences to adventure activities, discover unforgettable experiences across Kigali, including museums, festivals, hiking, cycling, local cuisine, nightlife, community tours, and scenic views that inspire every visitor today now
           </p>
         </div>
       </section>
