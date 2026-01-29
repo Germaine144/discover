@@ -1,9 +1,38 @@
 "use client";
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
 const KigaliEssentials: React.FC = () => {
+  const observerRef = useRef<IntersectionObserver | null>(null);
+
+  useEffect(() => {
+    // Create intersection observer for scroll animations
+    observerRef.current = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate-in');
+          }
+        });
+      },
+      {
+        threshold: 0.1,
+        rootMargin: '0px 0px -100px 0px'
+      }
+    );
+
+    // Observe all elements with scroll-animate class
+    const elements = document.querySelectorAll('.scroll-animate');
+    elements.forEach((el) => observerRef.current?.observe(el));
+
+    return () => {
+      if (observerRef.current) {
+        observerRef.current.disconnect();
+      }
+    };
+  }, []);
+
   return (
     <div className="bg-gray-50">
       {/* Add custom animations in a style tag */}
@@ -43,6 +72,79 @@ const KigaliEssentials: React.FC = () => {
         .float-animation {
           animation: float 3s ease-in-out infinite;
         }
+
+        /* Scroll animations */
+        @keyframes slideInLeft {
+          from {
+            opacity: 0;
+            transform: translateX(-60px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+
+        @keyframes slideInRight {
+          from {
+            opacity: 0;
+            transform: translateX(60px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+
+        @keyframes slideInUp {
+          from {
+            opacity: 0;
+            transform: translateY(60px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @keyframes scaleIn {
+          from {
+            opacity: 0;
+            transform: scale(0.9);
+          }
+          to {
+            opacity: 1;
+            transform: scale(1);
+          }
+        }
+
+        .scroll-animate {
+          opacity: 0;
+        }
+
+        .scroll-animate.animate-in.slide-left {
+          animation: slideInLeft 0.8s ease-out forwards;
+        }
+
+        .scroll-animate.animate-in.slide-right {
+          animation: slideInRight 0.8s ease-out forwards;
+        }
+
+        .scroll-animate.animate-in.slide-up {
+          animation: slideInUp 0.8s ease-out forwards;
+        }
+
+        .scroll-animate.animate-in.scale-in {
+          animation: scaleIn 0.8s ease-out forwards;
+        }
+
+        /* Stagger delays for grid items */
+        .scroll-animate:nth-child(1) { animation-delay: 0s; }
+        .scroll-animate:nth-child(2) { animation-delay: 0.1s; }
+        .scroll-animate:nth-child(3) { animation-delay: 0.2s; }
+        .scroll-animate:nth-child(4) { animation-delay: 0.3s; }
+        .scroll-animate:nth-child(5) { animation-delay: 0.4s; }
+        .scroll-animate:nth-child(6) { animation-delay: 0.5s; }
       `}</style>
 
       {/* Hero Section - keeping it the same */}
@@ -106,7 +208,7 @@ const KigaliEssentials: React.FC = () => {
       {/* Discover Kigali Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
+          <div className="text-center mb-16 scroll-animate slide-up">
             <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
               Discover Kigali
             </h2>
@@ -117,7 +219,7 @@ const KigaliEssentials: React.FC = () => {
           </div>
 
           <div className="grid md:grid-cols-2 gap-12 items-center mb-20">
-            <div className="relative h-96 rounded-2xl overflow-hidden shadow-2xl">
+            <div className="relative h-96 rounded-2xl overflow-hidden shadow-2xl scroll-animate slide-left">
               <Image
                 src="/images/bg3.jpg"
                 alt="Kigali Skyline"
@@ -125,7 +227,7 @@ const KigaliEssentials: React.FC = () => {
                 className="object-cover hover:scale-110 transition-transform duration-700"
               />
             </div>
-            <div className="space-y-6">
+            <div className="space-y-6 scroll-animate slide-right">
               <h3 className="text-3xl font-bold text-gray-900">The City of a Thousand Hills</h3>
               <p className="text-lg text-gray-700 leading-relaxed">
                 Nestled among rolling green hills, Kigali is a modern African capital that defies expectations. 
@@ -158,7 +260,7 @@ const KigaliEssentials: React.FC = () => {
       {/* History Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
+          <div className="text-center mb-16 scroll-animate slide-up">
             <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
               A Journey Through Time
             </h2>
@@ -170,7 +272,7 @@ const KigaliEssentials: React.FC = () => {
 
           <div className="space-y-20">
             <div className="grid md:grid-cols-2 gap-12 items-center">
-              <div className="order-2 md:order-1 space-y-6">
+              <div className="order-2 md:order-1 space-y-6 scroll-animate slide-left">
                 <h3 className="text-3xl font-bold text-gray-900">Ancient Roots</h3>
                 <p className="text-lg text-gray-700 leading-relaxed">
                   Long before becoming the capital, the hills of Kigali were home to ancient settlements. 
@@ -182,7 +284,7 @@ const KigaliEssentials: React.FC = () => {
                   the city's dramatic topography.
                 </p>
               </div>
-              <div className="order-1 md:order-2 relative h-96 rounded-2xl overflow-hidden shadow-2xl">
+              <div className="order-1 md:order-2 relative h-96 rounded-2xl overflow-hidden shadow-2xl scroll-animate slide-right">
                 <Image
                   src="/images/col1.jpg"
                   alt="Traditional Rwanda"
@@ -193,7 +295,7 @@ const KigaliEssentials: React.FC = () => {
             </div>
 
             <div className="grid md:grid-cols-2 gap-12 items-center">
-              <div className="relative h-96 rounded-2xl overflow-hidden shadow-2xl">
+              <div className="relative h-96 rounded-2xl overflow-hidden shadow-2xl scroll-animate slide-left">
                 <Image
                   src="/images/col.jpg"
                   alt="Colonial Kigali"
@@ -201,7 +303,7 @@ const KigaliEssentials: React.FC = () => {
                   className="object-cover hover:scale-110 transition-transform duration-700"
                 />
               </div>
-              <div className="space-y-6">
+              <div className="space-y-6 scroll-animate slide-right">
                 <h3 className="text-3xl font-bold text-gray-900">Colonial Era & Independence</h3>
                 <p className="text-lg text-gray-700 leading-relaxed">
                   Founded in 1907 during German colonial rule, Kigali became the capital of Rwanda in 1962 
@@ -214,7 +316,7 @@ const KigaliEssentials: React.FC = () => {
               </div>
             </div>
 
-            <div className="bg-gray-100 rounded-3xl p-8 md:p-12">
+            <div className="bg-gray-100 rounded-3xl p-8 md:p-12 scroll-animate scale-in">
               <div className="max-w-4xl mx-auto text-center space-y-6">
                 <h3 className="text-3xl font-bold text-gray-900">Remembering & Rising</h3>
                 <p className="text-lg text-gray-700 leading-relaxed">
@@ -235,7 +337,7 @@ const KigaliEssentials: React.FC = () => {
       {/* Modern Kigali Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
+          <div className="text-center mb-16 scroll-animate slide-up">
             <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
               Kigali Today
             </h2>
@@ -246,7 +348,7 @@ const KigaliEssentials: React.FC = () => {
           </div>
 
           <div className="grid md:grid-cols-3 gap-8 mb-16">
-            <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300">
+            <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300 scroll-animate slide-up">
               <div className="relative h-64">
                 <Image
                   src="/images/Kigali.jpg"
@@ -264,7 +366,7 @@ const KigaliEssentials: React.FC = () => {
               </div>
             </div>
 
-            <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300">
+            <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300 scroll-animate slide-up">
               <div className="relative h-64">
                 <Image
                   src="/images/Kigali1.jpg"
@@ -281,7 +383,7 @@ const KigaliEssentials: React.FC = () => {
               </div>
             </div>
 
-            <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300">
+            <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300 scroll-animate slide-up">
               <div className="relative h-64">
                 <Image
                   src="/images/walking.jpg"
@@ -301,7 +403,7 @@ const KigaliEssentials: React.FC = () => {
           </div>
 
           <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="space-y-6">
+            <div className="space-y-6 scroll-animate slide-left">
               <h3 className="text-3xl font-bold text-gray-900">A City Transformed</h3>
               <p className="text-lg text-gray-700 leading-relaxed">
                 Today's Kigali is a testament to vision and determination. The city boasts modern infrastructure, 
@@ -344,7 +446,7 @@ const KigaliEssentials: React.FC = () => {
                 </div>
               </div>
             </div>
-            <div className="relative h-96 rounded-2xl overflow-hidden shadow-2xl">
+            <div className="relative h-96 rounded-2xl overflow-hidden shadow-2xl scroll-animate slide-right">
               <Image
                 src="/images/kcc1.jpg"
                 alt="Modern Kigali"
@@ -359,7 +461,7 @@ const KigaliEssentials: React.FC = () => {
       {/* Popular Destinations WITH ANIMATED TEXT */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
+          <div className="text-center mb-16 scroll-animate slide-up">
             <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
               Popular Destinations
             </h2>
@@ -371,7 +473,7 @@ const KigaliEssentials: React.FC = () => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {/* Card 1 - Volcanoes with Animation */}
-            <div className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 cursor-pointer row-span-2">
+            <div className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 cursor-pointer row-span-2 scroll-animate scale-in">
               <div className="relative h-[500px]">
                 <Image
                   src="/images/zaria.jpg"
@@ -406,7 +508,7 @@ const KigaliEssentials: React.FC = () => {
             </div>
 
             {/* Card 2 - Lake Kivu */}
-            <div className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 cursor-pointer">
+            <div className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 cursor-pointer scroll-animate scale-in">
               <div className="relative h-[240px]">
                 <Image
                   src="/images/nyandugu.jpg"
@@ -439,7 +541,7 @@ const KigaliEssentials: React.FC = () => {
             </div>
 
             {/* Card 3 - Nyungwe */}
-            <div className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 cursor-pointer">
+            <div className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 cursor-pointer scroll-animate scale-in">
               <div className="relative h-[240px]">
                 <Image
                   src="/images/retreat hote.jpg"
@@ -472,7 +574,7 @@ const KigaliEssentials: React.FC = () => {
             </div>
 
             {/* Card 4 - Akagera */}
-            <div className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 cursor-pointer">
+            <div className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 cursor-pointer scroll-animate scale-in">
               <div className="relative h-[240px]">
                 <Image
                   src="/images/ecopark.jpg"
@@ -502,7 +604,7 @@ const KigaliEssentials: React.FC = () => {
             </div>
 
             {/* Card 5 - Downtown Kigali with Animation */}
-            <div className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 cursor-pointer row-span-2">
+            <div className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 cursor-pointer row-span-2 scroll-animate scale-in">
               <div className="relative h-[500px]">
                 <Image
                   src="/images/zaria1.jpg"
@@ -537,7 +639,7 @@ const KigaliEssentials: React.FC = () => {
             </div>
 
             {/* Card 6 - Cultural Experiences with Animation */}
-            <div className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 cursor-pointer">
+            <div className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 cursor-pointer scroll-animate scale-in">
               <div className="relative h-[240px]">
                 <Image
                   src="/images/bk.jpg"
@@ -572,7 +674,7 @@ const KigaliEssentials: React.FC = () => {
             </div>
           </div>
 
-          <div className="text-center mt-12">
+          <div className="text-center mt-12 scroll-animate slide-up">
             <Link 
               href="/places"
               className="inline-block bg-green-600 hover:bg-green-700 text-white px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg"
@@ -585,7 +687,7 @@ const KigaliEssentials: React.FC = () => {
 
       {/* Call to Action */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-green-800">
-        <div className="max-w-4xl mx-auto text-center">
+        <div className="max-w-4xl mx-auto text-center scroll-animate scale-in">
           <h2 className="text-4xl sm:text-5xl font-bold text-white mb-6">
             Ready to Experience Kigali?
           </h2>

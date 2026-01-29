@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { Hotel, Home, Building2, Wifi, Coffee, Utensils, Car, Star, MapPin, DollarSign, X, ChevronLeft, ChevronRight, Check } from 'lucide-react';
 import ContactInquiryForm from '@/components/ContactInquiryForm';
@@ -29,6 +29,33 @@ const WhereToStay: React.FC = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [showContactForm, setShowContactForm] = useState(false);
   const [contactAccommodation, setContactAccommodation] = useState<string>('');
+  const observerRef = useRef<IntersectionObserver | null>(null);
+
+  // Scroll animation observer
+  useEffect(() => {
+    observerRef.current = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate-in');
+          }
+        });
+      },
+      {
+        threshold: 0.1,
+        rootMargin: '0px 0px -100px 0px'
+      }
+    );
+
+    const elements = document.querySelectorAll('.scroll-animate');
+    elements.forEach((el) => observerRef.current?.observe(el));
+
+    return () => {
+      if (observerRef.current) {
+        observerRef.current.disconnect();
+      }
+    };
+  }, []);
 
   const types = [
     { id: 'all', name: 'All Accommodations', icon: Building2 },
@@ -456,6 +483,87 @@ const WhereToStay: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-white">
+      {/* Scroll Animation Styles */}
+      <style jsx>{`
+        @keyframes slideInLeft {
+          from {
+            opacity: 0;
+            transform: translateX(-60px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+
+        @keyframes slideInRight {
+          from {
+            opacity: 0;
+            transform: translateX(60px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+
+        @keyframes slideInUp {
+          from {
+            opacity: 0;
+            transform: translateY(60px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @keyframes scaleIn {
+          from {
+            opacity: 0;
+            transform: scale(0.9);
+          }
+          to {
+            opacity: 1;
+            transform: scale(1);
+          }
+        }
+
+        .scroll-animate {
+          opacity: 0;
+        }
+
+        .scroll-animate.animate-in.slide-left {
+          animation: slideInLeft 0.8s ease-out forwards;
+        }
+
+        .scroll-animate.animate-in.slide-right {
+          animation: slideInRight 0.8s ease-out forwards;
+        }
+
+        .scroll-animate.animate-in.slide-up {
+          animation: slideInUp 0.8s ease-out forwards;
+        }
+
+        .scroll-animate.animate-in.scale-in {
+          animation: scaleIn 0.8s ease-out forwards;
+        }
+
+        /* Stagger delays for grid items */
+        .scroll-animate:nth-child(1) { animation-delay: 0s; }
+        .scroll-animate:nth-child(2) { animation-delay: 0.15s; }
+        .scroll-animate:nth-child(3) { animation-delay: 0.3s; }
+        .scroll-animate:nth-child(4) { animation-delay: 0.45s; }
+        .scroll-animate:nth-child(5) { animation-delay: 0.6s; }
+        .scroll-animate:nth-child(6) { animation-delay: 0.75s; }
+        .scroll-animate:nth-child(7) { animation-delay: 0.9s; }
+        .scroll-animate:nth-child(8) { animation-delay: 1.05s; }
+        .scroll-animate:nth-child(9) { animation-delay: 1.2s; }
+        .scroll-animate:nth-child(10) { animation-delay: 1.35s; }
+        .scroll-animate:nth-child(11) { animation-delay: 1.5s; }
+        .scroll-animate:nth-child(12) { animation-delay: 1.65s; }
+      `}</style>
+
       {/* Simple Hero Section */}
       <section className="relative h-[60vh] min-h-[500px] flex items-center justify-center">
         {/* Background Image with brightness filter */}
@@ -484,7 +592,7 @@ const WhereToStay: React.FC = () => {
       {/* Main Content Section */}
       <section id="where-to-stay" className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
+          <div className="text-center mb-16 scroll-animate slide-up">
             <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-4">
               Where to Stay in Kigali
             </h2>
@@ -495,7 +603,7 @@ const WhereToStay: React.FC = () => {
           </div>
 
           {/* Type Filter */}
-          <div className="mb-12">
+          <div className="mb-12 scroll-animate slide-up">
             <div className="flex flex-wrap justify-center gap-3 sm:gap-4">
               {types.map((type) => {
                 const Icon = type.icon;
@@ -524,7 +632,7 @@ const WhereToStay: React.FC = () => {
               return (
                 <div
                   key={accommodation.id}
-                  className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 border border-gray-100"
+                  className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 border border-gray-100 scroll-animate scale-in"
                 >
                   <div className="md:flex">
                     {/* Image */}
@@ -613,7 +721,7 @@ const WhereToStay: React.FC = () => {
           </div>
 
           {/* Tips Section */}
-          <div className="mt-20 bg-green-600 rounded-3xl p-8 sm:p-12 text-white">
+          <div className="mt-20 bg-green-600 rounded-3xl p-8 sm:p-12 text-white scroll-animate scale-in">
             <h3 className="text-2xl sm:text-3xl font-bold mb-6 text-center">
               Accommodation Tips for Kigali
             </h3>

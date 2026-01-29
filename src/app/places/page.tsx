@@ -1,9 +1,10 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { MapPin, Clock, Star, Camera, Coffee, Utensils, Palette, TreePine, Building2, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
+
 interface Place {
   id: number;
   name: string;
@@ -26,6 +27,33 @@ const PlacesToVisit: React.FC = () => {
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
   const [selectedPlace, setSelectedPlace] = useState<Place | null>(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const observerRef = useRef<IntersectionObserver | null>(null);
+
+  // Scroll animation observer
+  useEffect(() => {
+    observerRef.current = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate-in');
+          }
+        });
+      },
+      {
+        threshold: 0.1,
+        rootMargin: '0px 0px -100px 0px'
+      }
+    );
+
+    const elements = document.querySelectorAll('.scroll-animate');
+    elements.forEach((el) => observerRef.current?.observe(el));
+
+    return () => {
+      if (observerRef.current) {
+        observerRef.current.disconnect();
+      }
+    };
+  }, []);
 
   const categories = [
     { id: 'all', name: 'All Places', icon: MapPin },
@@ -291,6 +319,87 @@ const PlacesToVisit: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
+      {/* Scroll Animation Styles */}
+      <style jsx>{`
+        @keyframes slideInLeft {
+          from {
+            opacity: 0;
+            transform: translateX(-60px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+
+        @keyframes slideInRight {
+          from {
+            opacity: 0;
+            transform: translateX(60px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+
+        @keyframes slideInUp {
+          from {
+            opacity: 0;
+            transform: translateY(60px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @keyframes scaleIn {
+          from {
+            opacity: 0;
+            transform: scale(0.9);
+          }
+          to {
+            opacity: 1;
+            transform: scale(1);
+          }
+        }
+
+        .scroll-animate {
+          opacity: 0;
+        }
+
+        .scroll-animate.animate-in.slide-left {
+          animation: slideInLeft 0.8s ease-out forwards;
+        }
+
+        .scroll-animate.animate-in.slide-right {
+          animation: slideInRight 0.8s ease-out forwards;
+        }
+
+        .scroll-animate.animate-in.slide-up {
+          animation: slideInUp 0.8s ease-out forwards;
+        }
+
+        .scroll-animate.animate-in.scale-in {
+          animation: scaleIn 0.8s ease-out forwards;
+        }
+
+        /* Stagger delays for grid items */
+        .scroll-animate:nth-child(1) { animation-delay: 0s; }
+        .scroll-animate:nth-child(2) { animation-delay: 0.1s; }
+        .scroll-animate:nth-child(3) { animation-delay: 0.2s; }
+        .scroll-animate:nth-child(4) { animation-delay: 0.3s; }
+        .scroll-animate:nth-child(5) { animation-delay: 0.4s; }
+        .scroll-animate:nth-child(6) { animation-delay: 0.5s; }
+        .scroll-animate:nth-child(7) { animation-delay: 0.6s; }
+        .scroll-animate:nth-child(8) { animation-delay: 0.7s; }
+        .scroll-animate:nth-child(9) { animation-delay: 0.8s; }
+        .scroll-animate:nth-child(10) { animation-delay: 0.9s; }
+        .scroll-animate:nth-child(11) { animation-delay: 1s; }
+        .scroll-animate:nth-child(12) { animation-delay: 1.1s; }
+      `}</style>
+
       {/* Simple Hero Section with brightness filter */}
       <section className="relative h-[80vh] min-h-[500px] flex items-center justify-center">
         {/* Background Image with brightness filter */}
@@ -319,7 +428,7 @@ const PlacesToVisit: React.FC = () => {
       {/* Main Content Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white to-gray-50">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
+          <div className="text-center mb-16 scroll-animate slide-up">
             <div className="inline-flex items-center space-x-2 bg-green-50 px-6 py-3 rounded-full mb-6">
               <MapPin className="w-5 h-5 text-green-600" />
               <span className="text-green-700 font-medium">Curated Selection</span>
@@ -335,7 +444,7 @@ const PlacesToVisit: React.FC = () => {
           </div>
 
           {/* Category Filter */}
-          <div className="mb-12">
+          <div className="mb-12 scroll-animate slide-up">
             <div className="flex flex-wrap justify-center gap-3 sm:gap-4">
               {categories.map((category) => {
                 const Icon = category.icon;
@@ -366,7 +475,7 @@ const PlacesToVisit: React.FC = () => {
                   key={place.id}
                   onMouseEnter={() => setHoveredCard(place.id)}
                   onMouseLeave={() => setHoveredCard(null)}
-                  className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2"
+                  className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 scroll-animate scale-in"
                 >
                   {/* Image */}
                   <div className="relative h-64 overflow-hidden">
@@ -447,7 +556,7 @@ const PlacesToVisit: React.FC = () => {
           )}
 
           {/* Call to Action */}
-          <div className="mt-16 text-center bg-green-50 rounded-3xl p-8 sm:p-12 text-2xl">
+          <div className="mt-16 text-center bg-green-50 rounded-3xl p-8 sm:p-12 text-2xl scroll-animate scale-in">
             <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">
               Need Help Planning Your Visit?
             </h3>
