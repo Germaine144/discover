@@ -1,13 +1,53 @@
+"use client";
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+
 const KigaliEssentials: React.FC = () => {
   return (
     <div className="bg-gray-50">
-      {/* Hero Section with Video Background */}
+      {/* Add custom animations in a style tag */}
+      <style jsx>{`
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 0.9;
+            transform: translateY(0);
+          }
+        }
+        
+        .animate-text-1 {
+          animation: fadeInUp 1s ease-out 0.2s both;
+        }
+        
+        .animate-text-2 {
+          animation: fadeInUp 1s ease-out 0.4s both;
+        }
+        
+        .animate-text-3 {
+          animation: fadeInUp 1s ease-out 0.6s both;
+        }
+
+        @keyframes float {
+          0%, 100% {
+            transform: translateY(0px);
+          }
+          50% {
+            transform: translateY(-10px);
+          }
+        }
+        
+        .float-animation {
+          animation: float 3s ease-in-out infinite;
+        }
+      `}</style>
+
+      {/* Hero Section - keeping it the same */}
       <section id="kigali-essentials" className="relative h-screen flex items-center justify-center overflow-hidden">
-        {/* Video Background */}
-         <div className="absolute inset-0 w-full h-full z-0">
+        <div className="absolute inset-0 w-full h-full z-0">
           <video
             autoPlay
             loop
@@ -26,7 +66,6 @@ const KigaliEssentials: React.FC = () => {
            <source src="/videos/kigali123.mp4"  type="video/mp4" />
           </video>
           
-          {/* Fallback background image */}
           <div 
             className="absolute inset-0 w-full h-full bg-cover bg-center"
             style={{ 
@@ -36,7 +75,6 @@ const KigaliEssentials: React.FC = () => {
           />
         </div>
 
-        {/* Hero Content */}
         <div className="relative z-10 text-center text-white px-4 max-w-4xl mx-auto">
           <h1 
             className="text-5xl sm:text-6xl lg:text-7xl mb-6"
@@ -56,7 +94,6 @@ const KigaliEssentials: React.FC = () => {
           </button>
         </div>
 
-        {/* Scroll Indicator */}
         <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-10">
           <div className="animate-bounce">
             <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -132,7 +169,6 @@ const KigaliEssentials: React.FC = () => {
           </div>
 
           <div className="space-y-20">
-            {/* Ancient Era */}
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div className="order-2 md:order-1 space-y-6">
                 <h3 className="text-3xl font-bold text-gray-900">Ancient Roots</h3>
@@ -156,7 +192,6 @@ const KigaliEssentials: React.FC = () => {
               </div>
             </div>
 
-            {/* Colonial Period */}
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div className="relative h-96 rounded-2xl overflow-hidden shadow-2xl">
                 <Image
@@ -179,7 +214,6 @@ const KigaliEssentials: React.FC = () => {
               </div>
             </div>
 
-            {/* 1994 Genocide */}
             <div className="bg-gray-100 rounded-3xl p-8 md:p-12">
               <div className="max-w-4xl mx-auto text-center space-y-6">
                 <h3 className="text-3xl font-bold text-gray-900">Remembering & Rising</h3>
@@ -211,9 +245,7 @@ const KigaliEssentials: React.FC = () => {
             </p>
           </div>
 
-          {/* Feature Grid */}
           <div className="grid md:grid-cols-3 gap-8 mb-16">
-            {/* Clean & Green */}
             <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300">
               <div className="relative h-64">
                 <Image
@@ -232,7 +264,6 @@ const KigaliEssentials: React.FC = () => {
               </div>
             </div>
 
-            {/* Tech Hub */}
             <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300">
               <div className="relative h-64">
                 <Image
@@ -250,7 +281,6 @@ const KigaliEssentials: React.FC = () => {
               </div>
             </div>
 
-            {/* Safe & Welcoming */}
             <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300">
               <div className="relative h-64">
                 <Image
@@ -270,7 +300,6 @@ const KigaliEssentials: React.FC = () => {
             </div>
           </div>
 
-          {/* Modern Highlights */}
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
               <h3 className="text-3xl font-bold text-gray-900">A City Transformed</h3>
@@ -327,6 +356,233 @@ const KigaliEssentials: React.FC = () => {
         </div>
       </section>
 
+      {/* Popular Destinations WITH ANIMATED TEXT */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
+              Popular Destinations
+            </h2>
+            <div className="w-24 h-1 bg-green-600 mx-auto mb-6"></div>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Discover Kigali  most breathtaking places and unforgettable experiences
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {/* Card 1 - Volcanoes with Animation */}
+            <div className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 cursor-pointer row-span-2">
+              <div className="relative h-[500px]">
+                <Image
+                  src="/images/zaria.jpg"
+                  alt="Zaria court"
+                  fill
+                  className="object-cover group-hover:scale-110 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
+                
+               
+                
+                <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                  <div className="flex items-center space-x-2 mb-2">
+                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
+                    </svg>
+                    <span className="text-sm font-medium">Zaria Court, Kigali</span>
+                  </div>
+                  <p className="text-sm text-gray-200 leading-relaxed">
+              Zaria Court, Kigali: Modern, secure, stylish apartments in prime location.
+                  </p>
+                </div>
+                <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full">
+                  <div className="flex items-center space-x-1">
+                    <svg className="w-4 h-4 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                    <span className="text-sm font-semibold text-gray-900">4.9</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Card 2 - Lake Kivu */}
+            <div className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 cursor-pointer">
+              <div className="relative h-[240px]">
+                <Image
+                  src="/images/nyandugu.jpg"
+                  alt="Lake Kivu"
+                  fill
+                  className="object-cover group-hover:scale-110 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+                <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                  <div className="flex items-center space-x-2 mb-2">
+                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
+                    </svg>
+                    <span className="text-sm font-medium"> Nyandungu Eco Park</span>
+                  </div>
+                
+                  <p className="text-sm text-gray-200">
+                    Scenic nature park with trails, wildlife, and peaceful outdoor experiences
+                  </p>
+                </div>
+                <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full">
+                  <div className="flex items-center space-x-1">
+                    <svg className="w-4 h-4 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                    <span className="text-sm font-semibold text-gray-900">4.8</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Card 3 - Nyungwe */}
+            <div className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 cursor-pointer">
+              <div className="relative h-[240px]">
+                <Image
+                  src="/images/retreat hote.jpg"
+                  alt="Nyungwe Forest"
+                  fill
+                  className="object-cover group-hover:scale-110 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+                <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                  <div className="flex items-center space-x-2 mb-2">
+                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
+                    </svg>
+                    <span className="text-sm font-medium">The Retreat</span>
+                  </div>
+                
+                  <p className="text-sm text-gray-200">
+                 Luxury hotel providing comfort, elegance, and exceptional hospitality in serene surroundings
+                  </p>
+                </div>
+                <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full">
+                  <div className="flex items-center space-x-1">
+                    <svg className="w-4 h-4 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                    <span className="text-sm font-semibold text-gray-900">4.7</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Card 4 - Akagera */}
+            <div className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 cursor-pointer">
+              <div className="relative h-[240px]">
+                <Image
+                  src="/images/ecopark.jpg"
+                  alt="Akagera National Park"
+                  fill
+                  className="object-cover group-hover:scale-110 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+                <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                  <div className="flex items-center space-x-2 mb-2">
+                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
+                    </svg>
+                    <span className="text-sm font-medium">Green Nyandungu</span>
+                  </div>
+                  <p className="text-sm text-gray-200">Lush eco-park perfect for nature walks and outdoor relaxation</p>
+                </div>
+                <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full">
+                  <div className="flex items-center space-x-1">
+                    <svg className="w-4 h-4 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                    <span className="text-sm font-semibold text-gray-900">4.8</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Card 5 - Downtown Kigali with Animation */}
+            <div className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 cursor-pointer row-span-2">
+              <div className="relative h-[500px]">
+                <Image
+                  src="/images/zaria1.jpg"
+                  alt="Kigali City"
+                  fill
+                  className="object-cover group-hover:scale-110 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
+             
+                
+               <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                  <div className="flex items-center space-x-2 mb-2">
+                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
+                    </svg>
+                    <span className="text-sm font-medium">The Zaria Suites</span>
+                  </div>
+                
+                  <p className="text-sm text-gray-200 leading-relaxed">
+                  Contemporary apartments with safety, comfort, and modern amenities  Modern architecture, vibrant markets, and museums
+                  </p>
+                </div>
+                <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full">
+                  <div className="flex items-center space-x-1">
+                    <svg className="w-4 h-4 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                    <span className="text-sm font-semibold text-gray-900">4.9</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Card 6 - Cultural Experiences with Animation */}
+            <div className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 cursor-pointer">
+              <div className="relative h-[240px]">
+                <Image
+                  src="/images/bk.jpg"
+                  alt="Cultural Experiences"
+                  fill
+                  className="object-cover group-hover:scale-110 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
+                
+                {/* Animated Text Overlay - Smaller for regular card */}
+              
+                
+                <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                  <div className="flex items-center space-x-2 mb-2">
+                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
+                    </svg>
+                    <span className="text-sm font-medium">BK Arena Kigali</span>
+                  </div>
+                 
+                  <p className="text-sm text-gray-200">State-of-the-art arena for sports, music, and large-scale events</p>
+                </div>
+                <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full">
+                  <div className="flex items-center space-x-1">
+                    <svg className="w-4 h-4 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                    <span className="text-sm font-semibold text-gray-900">4.6</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="text-center mt-12">
+            <Link 
+              href="/places"
+              className="inline-block bg-green-600 hover:bg-green-700 text-white px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg"
+            >
+              Explore All Place 
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Call to Action */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-green-800">
         <div className="max-w-4xl mx-auto text-center">
@@ -337,19 +593,19 @@ const KigaliEssentials: React.FC = () => {
             Discover the places, activities, and accommodations that make Kigali unforgettable
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-  <Link 
-    href="/places"
-    className="bg-white text-green-600 px-8 py-4 rounded-full text-lg font-semibold hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-lg text-center"
-  >
-    Explore Places to Visit
-  </Link>
-  <Link 
-    href="/accommodations"
-    className="bg-transparent border-2 border-white text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-white hover:text-green-600 transition-all duration-300 transform hover:scale-105 text-center"
-  >
-    Plan Your Stay
-  </Link>
-</div>
+            <Link 
+              href="/places"
+              className="bg-white text-green-600 px-8 py-4 rounded-full text-lg font-semibold hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-lg text-center"
+            >
+              Explore Places to Visit
+            </Link>
+            <Link 
+              href="/accommodations"
+              className="bg-transparent border-2 border-white text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-white hover:text-green-600 transition-all duration-300 transform hover:scale-105 text-center"
+            >
+              Plan Your Stay
+            </Link>
+          </div>
         </div>
       </section>
     </div>

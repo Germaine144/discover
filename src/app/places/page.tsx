@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { MapPin, Clock, Star, Camera, Coffee, Utensils, Palette, TreePine, Building2, X, ChevronLeft, ChevronRight } from 'lucide-react';
-
+import Link from 'next/link';
 interface Place {
   id: number;
   name: string;
@@ -93,7 +93,7 @@ const PlacesToVisit: React.FC = () => {
       category: 'recreation',
       description: 'Premium golf course with lush greens and beautiful surroundings. Open to visitors for a round of golf or just to enjoy the scenery.',
       image: '/images/golf1.jpg',
-      images: ['/images/golf1.jpg', '/images/golf1.jpg', '/images/golf1.jpg'],
+      images: ['/images/golf1.jpg', '/images/golf.jpg', '/images/golf2.jpg'],
       rating: 4.6,
       bestTime: 'Morning (7:00-11:00 AM)',
       highlights: ['18-Hole Course', 'Clubhouse Dining', 'Pro Shop', 'Scenic Views'],
@@ -141,7 +141,7 @@ const PlacesToVisit: React.FC = () => {
       category: 'restaurant',
       description: 'Upscale restaurant serving exquisite international and Rwandan fusion cuisine in an elegant setting.',
       image: '/images/noir.jpg',
-      images: ['/images/noir.jpg', '/images/poivre2.jpg', '/images/poivre1.jpg'],
+      images: ['/images/heaven.jpg', '/images/poivre2.jpg', '/images/poivre1.jpg'],
       rating: 4.8,
       bestTime: 'Dinner (6:00-10:00 PM)',
       highlights: ['Fine Dining', 'Fusion Cuisine', 'Wine Selection', 'Romantic Atmosphere'],
@@ -189,7 +189,7 @@ const PlacesToVisit: React.FC = () => {
       category: 'park',
       description: 'Urban park in the heart of Kacyiru district offering green spaces, walking paths, and a peaceful escape from city life.',
       image: '/images/download (9).jpg',
-      images: ['/images/download (9).jpg', '/images/download (9).jpg', '/images/download (9).jpg'],
+      images: ['/images/greenpark1.jpg', '/images/greenpark.jpg', '/images/download (9).jpg'],
       rating: 4.3,
       bestTime: 'Anytime',
       highlights: ['Urban Oasis', 'Walking Paths', 'Green Spaces', 'City Views'],
@@ -296,11 +296,11 @@ const PlacesToVisit: React.FC = () => {
         {/* Background Image with brightness filter */}
         <div className="absolute inset-0 z-0 bg-black">
           <Image
-            src="/images/inzora.jpg"
+            src="/images/zaria1.jpg"
             alt="Kigali City Panorama"
             fill
             priority
-            className="object-cover brightness-[0.6]"
+            className="object-cover brightness-[0.5]"
             quality={100}
           />
         </div>
@@ -447,158 +447,176 @@ const PlacesToVisit: React.FC = () => {
           )}
 
           {/* Call to Action */}
-          <div className="mt-16 text-center bg-green-50 rounded-3xl p-8 sm:p-12">
+          <div className="mt-16 text-center bg-green-50 rounded-3xl p-8 sm:p-12 text-2xl">
             <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">
               Need Help Planning Your Visit?
             </h3>
             <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
               Get personalized recommendations and insider tips from local experts to make the most of your Kigali experience
             </p>
-            <button className="bg-green-600 hover:bg-green-700 text-white font-semibold px-8 py-4 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg">
+            <Link  href="" className="bg-green-600 hover:bg-green-700 text-white font-semibold px-8 py-4 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg">
               Contact a Local Guide
-            </button>
+            </Link  >
           </div>
         </div>
       </section>
 
-      {/* Modal - Similar to Rwanda Page */}
+      {/* Modal with Improved Background */}
       {selectedPlace && (
-        <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-2 sm:p-4 overflow-y-auto">
-          <div className="bg-white rounded-lg max-w-6xl w-full my-4 sm:my-8 overflow-hidden relative shadow-2xl z-20 max-h-[95vh] sm:max-h-[90vh]">
-            {/* Close Button */}
-            <button
-              onClick={closeModal}
-              className="absolute top-2 right-2 sm:top-4 sm:right-4 z-50 bg-gray-800 text-white rounded-full p-1.5 sm:p-2 hover:bg-gray-700 transition-colors"
-            >
-              <X className="w-5 h-5 sm:w-6 sm:h-6" />
-            </button>
+        <>
+          {/* Backdrop with blur and gradient overlay */}
+          <div 
+            className="fixed inset-0 z-40 backdrop-blur-sm bg-gradient-to-br from-green-900/40 via-gray-900/60 to-green-800/40"
+            onClick={closeModal}
+          >
+            {/* Animated subtle pattern overlay */}
+            <div className="absolute inset-0 opacity-10">
+              <div className="absolute inset-0" style={{
+                backgroundImage: `radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                                 radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                                 radial-gradient(circle at 40% 20%, rgba(255, 255, 255, 0.05) 0%, transparent 50%)`
+              }}></div>
+            </div>
+          </div>
 
-            <div className="flex flex-col lg:flex-row h-full max-h-[95vh] sm:max-h-[85vh]">
-              {/* Image Slideshow - Left Side */}
-              <div className="w-full lg:w-2/5 relative overflow-hidden h-64 sm:h-80 lg:h-auto">
-                <div className="relative h-full">
-                  <div 
-                    className="flex h-full transition-transform duration-1000 ease-in-out"
-                    style={{ transform: `translateX(-${currentImageIndex * 100}%)` }}
-                  >
-                    {selectedPlace.images.map((image: string, index: number) => (
-                      <div key={index} className="min-w-full h-full relative">
-                        <Image
-                          src={image}
-                          alt={`${selectedPlace.name} ${index + 1}`}
-                          fill
-                          className="object-cover"
+          {/* Modal Content */}
+          <div className="fixed inset-0 flex items-center justify-center z-50 p-2 sm:p-4 overflow-y-auto pointer-events-none">
+            <div className="bg-white rounded-lg max-w-6xl w-full my-4 sm:my-8 overflow-hidden relative shadow-2xl pointer-events-auto max-h-[95vh] sm:max-h-[90vh]">
+              {/* Close Button */}
+              <button
+                onClick={closeModal}
+                className="absolute top-2 right-2 sm:top-4 sm:right-4 z-50 bg-gray-800 text-white rounded-full p-1.5 sm:p-2 hover:bg-gray-700 transition-colors"
+              >
+                <X className="w-5 h-5 sm:w-6 sm:h-6" />
+              </button>
+
+              <div className="flex flex-col lg:flex-row h-full max-h-[95vh] sm:max-h-[85vh]">
+                {/* Image Slideshow - Left Side */}
+                <div className="w-full lg:w-2/5 relative overflow-hidden h-64 sm:h-80 lg:h-auto">
+                  <div className="relative h-full">
+                    <div 
+                      className="flex h-full transition-transform duration-1000 ease-in-out"
+                      style={{ transform: `translateX(-${currentImageIndex * 100}%)` }}
+                    >
+                      {selectedPlace.images.map((image: string, index: number) => (
+                        <div key={index} className="min-w-full h-full relative">
+                          <Image
+                            src={image}
+                            alt={`${selectedPlace.name} ${index + 1}`}
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Navigation Arrows */}
+                    <button
+                      onClick={prevImage}
+                      className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-1.5 sm:p-2 rounded-full transition-colors z-10"
+                    >
+                      <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
+                    </button>
+                    <button
+                      onClick={nextImage}
+                      className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-1.5 sm:p-2 rounded-full transition-colors z-10"
+                    >
+                      <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
+                    </button>
+
+                    {/* Indicators */}
+                    <div className="absolute bottom-3 sm:bottom-4 left-1/2 -translate-x-1/2 flex space-x-1.5 sm:space-x-2 z-10">
+                      {selectedPlace.images.map((_: string, index: number) => (
+                        <button
+                          key={index}
+                          onClick={() => setCurrentImageIndex(index)}
+                          className={`w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full transition-all duration-300 ${
+                            index === currentImageIndex ? 'bg-white scale-125' : 'bg-white/60'
+                          }`}
                         />
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Navigation Arrows */}
-                  <button
-                    onClick={prevImage}
-                    className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-1.5 sm:p-2 rounded-full transition-colors z-10"
-                  >
-                    <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
-                  </button>
-                  <button
-                    onClick={nextImage}
-                    className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-1.5 sm:p-2 rounded-full transition-colors z-10"
-                  >
-                    <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
-                  </button>
-
-                  {/* Indicators */}
-                  <div className="absolute bottom-3 sm:bottom-4 left-1/2 -translate-x-1/2 flex space-x-1.5 sm:space-x-2 z-10">
-                    {selectedPlace.images.map((_: string, index: number) => (
-                      <button
-                        key={index}
-                        onClick={() => setCurrentImageIndex(index)}
-                        className={`w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full transition-all duration-300 ${
-                          index === currentImageIndex ? 'bg-white scale-125' : 'bg-white/60'
-                        }`}
-                      />
-                    ))}
+                      ))}
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              {/* Content - Right Side - Scrollable */}
-              <div className="w-full lg:w-3/5 overflow-y-auto bg-white">
-                <div className="p-4 sm:p-6 lg:p-8">
-                  <div className="mb-4 sm:mb-6">
-                    <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2 sm:mb-3 uppercase tracking-wide leading-tight">
-                      {selectedPlace.name}
-                    </h2>
-                    <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-6 space-y-2 sm:space-y-0 text-gray-600">
-                      <div className="flex items-center space-x-2">
-                        <Clock className="w-4 h-4 sm:w-5 sm:h-5 text-green-600" />
-                        <span className="font-medium text-sm sm:text-base">{selectedPlace.bestTime}</span>
+                {/* Content - Right Side - Scrollable */}
+                <div className="w-full lg:w-3/5 overflow-y-auto bg-white">
+                  <div className="p-4 sm:p-6 lg:p-8">
+                    <div className="mb-4 sm:mb-6">
+                      <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2 sm:mb-3 uppercase tracking-wide leading-tight">
+                        {selectedPlace.name}
+                      </h2>
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-6 space-y-2 sm:space-y-0 text-gray-600">
+                        <div className="flex items-center space-x-2">
+                          <Clock className="w-4 h-4 sm:w-5 sm:h-5 text-green-600" />
+                          <span className="font-medium text-sm sm:text-base">{selectedPlace.bestTime}</span>
+                        </div>
+                        {selectedPlace.rating && (
+                          <div className="flex items-center space-x-1">
+                            <Star className="w-5 h-5 fill-yellow-400 text-yellow-400" />
+                            <span className="text-lg font-bold text-gray-900">{selectedPlace.rating}</span>
+                          </div>
+                        )}
                       </div>
-                      {selectedPlace.rating && (
-                        <div className="flex items-center space-x-1">
-                          <Star className="w-5 h-5 fill-yellow-400 text-yellow-400" />
-                          <span className="text-lg font-bold text-gray-900">{selectedPlace.rating}</span>
+                      {selectedPlace.priceRange && (
+                        <div className="mt-2 text-green-700 font-semibold text-lg">
+                          {selectedPlace.priceRange}
                         </div>
                       )}
                     </div>
-                    {selectedPlace.priceRange && (
-                      <div className="mt-2 text-green-700 font-semibold text-lg">
-                        {selectedPlace.priceRange}
-                      </div>
-                    )}
-                  </div>
 
-                  <div className="space-y-4 sm:space-y-6">
-                    <div>
-                      <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2 sm:mb-3 uppercase tracking-wide">
-                        About This Place
-                      </h3>
-                      <p className="text-sm sm:text-base text-gray-700 leading-relaxed">
-                        {selectedPlace.detailedDescription}
-                      </p>
-                    </div>
-
-                    <div>
-                      <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2 sm:mb-3 uppercase tracking-wide">
-                        Highlights
-                      </h3>
-                      <ul className="space-y-2 sm:space-y-3">
-                        {selectedPlace.highlights.map((highlight: string, index: number) => (
-                          <li key={index} className="flex items-start space-x-2 sm:space-x-3">
-                            <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-green-600 rounded-full mt-2 flex-shrink-0"></div>
-                            <span className="text-sm sm:text-base text-gray-700 leading-relaxed">{highlight}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    {selectedPlace.address && (
+                    <div className="space-y-4 sm:space-y-6">
                       <div>
                         <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2 sm:mb-3 uppercase tracking-wide">
-                          Location
+                          About This Place
                         </h3>
-                        <div className="flex items-center space-x-2 text-gray-700">
-                          <MapPin className="w-5 h-5 text-green-600" />
-                          <span className="text-sm sm:text-base">{selectedPlace.address}</span>
-                        </div>
+                        <p className="text-sm sm:text-base text-gray-700 leading-relaxed">
+                          {selectedPlace.detailedDescription}
+                        </p>
                       </div>
-                    )}
 
-                    <div className="pt-4 sm:pt-6 pb-2 sm:pb-4 sticky bottom-0 bg-white border-t border-gray-200">
-                      <button 
-                        onClick={() => openGoogleMaps(selectedPlace)}
-                        className="w-full bg-green-600 hover:bg-green-700 text-white py-3 sm:py-3.5 px-4 sm:px-6 rounded-md font-semibold transition-colors uppercase tracking-wide text-sm sm:text-base flex items-center justify-center space-x-2"
-                      >
-                        <MapPin className="w-5 h-5" />
-                        <span>Get Directions on Google Maps</span>
-                      </button>
+                      <div>
+                        <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2 sm:mb-3 uppercase tracking-wide">
+                          Highlights
+                        </h3>
+                        <ul className="space-y-2 sm:space-y-3">
+                          {selectedPlace.highlights.map((highlight: string, index: number) => (
+                            <li key={index} className="flex items-start space-x-2 sm:space-x-3">
+                              <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-green-600 rounded-full mt-2 flex-shrink-0"></div>
+                              <span className="text-sm sm:text-base text-gray-700 leading-relaxed">{highlight}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      {selectedPlace.address && (
+                        <div>
+                          <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2 sm:mb-3 uppercase tracking-wide">
+                            Location
+                          </h3>
+                          <div className="flex items-center space-x-2 text-gray-700">
+                            <MapPin className="w-5 h-5 text-green-600" />
+                            <span className="text-sm sm:text-base">{selectedPlace.address}</span>
+                          </div>
+                        </div>
+                      )}
+
+                      <div className="pt-4 sm:pt-6 pb-2 sm:pb-4 sticky bottom-0 bg-white border-t border-gray-200">
+                        <button 
+                          onClick={() => openGoogleMaps(selectedPlace)}
+                          className="w-full bg-green-600 hover:bg-green-700 text-white py-3 sm:py-3.5 px-4 sm:px-6 rounded-md font-semibold transition-colors uppercase tracking-wide text-sm sm:text-base flex items-center justify-center space-x-2"
+                        >
+                          <MapPin className="w-5 h-5" />
+                          <span>Get Directions on Google Maps</span>
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        </>
       )}
     </div>
   );
